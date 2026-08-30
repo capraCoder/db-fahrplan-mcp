@@ -143,6 +143,27 @@ runs the live tests and opens an issue if bahn.de changes something.
   Booking happens on bahn.de.
 - **Timetable changes** (mid-December, mid-June) can make far-future queries temporarily odd.
 
+## Citing
+
+If this server is part of published work, cite it (metadata in `CITATION.cff`; GitHub's
+"Cite this repository" button renders it):
+
+> Caprazli, K. M. (2026). *db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server* (Version 0.2.1) [Software]. https://github.com/capraCoder/db-fahrplan-mcp
+
+```bibtex
+@software{caprazli_db_fahrplan_mcp_2026,
+  author  = {Caprazli, Kafkas M.},
+  title   = {db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server},
+  version = {0.2.1},
+  year    = {2026},
+  url     = {https://github.com/capraCoder/db-fahrplan-mcp}
+}
+```
+
+Every release is archived on Zenodo with a DOI (badge above once the first archive lands)
+and each release's artifacts carry OpenTimestamps proofs (`*.ots`, Bitcoin-anchored) in the
+GitHub release assets.
+
 ## Licence
 
 MIT.

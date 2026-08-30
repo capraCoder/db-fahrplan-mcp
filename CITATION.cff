@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: "db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server"
+message: "If you use this software, please cite it using this metadata."
+type: software
+authors:
+  - family-names: "Caprazli"
+    given-names: "Kafkas M."
+    orcid: "https://orcid.org/0000-0002-5744-8944"
+version: "0.2.1"
+date-released: "2026-08-30"
+license: "MIT"
+repository-code: "https://github.com/capraCoder/db-fahrplan-mcp"
+url: "https://pypi.org/project/db-fahrplan-mcp/"
+keywords:
+  - model-context-protocol
+  - mcp-server
+  - deutsche-bahn
+  - railway-timetable
+  - journey-planning
+  - llm-tools
+  - open-data
+abstract: >-
+  An MCP (Model Context Protocol) server exposing live Deutsche Bahn timetable
+  data to language-model assistants: journey planning with fare breakdown,
+  cheapest-time-of-day search, departure and arrival boards with real-time
+  delays and platform changes, per-train stop lists, coach sequence, and
+  station geosearch. It queries the JSON endpoints behind bahn.de directly,
+  requires no API key, and is tested against recorded and live responses.

@@ -4,6 +4,13 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-08-30
+
+### Added
+- `CITATION.cff` and `.zenodo.json` (software citation metadata, ORCID); Zenodo DOI archiving per release; OpenTimestamps proofs of release artifacts attached to GitHub releases.
+
+No code changes.
+
 ## [0.2.0] - 2026-08-30
 
 ### Added
