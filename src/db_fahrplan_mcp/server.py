@@ -29,7 +29,7 @@ import httpx
 from pydantic import Field
 
 from . import __version__
-from ._compat import Context, FastMCP, ToolAnnotations, ToolError  # noqa: F401
+from ._compat import Context, FastMCP, ToolError, read_only_annotations  # noqa: F401
 
 log = logging.getLogger("db_fahrplan_mcp")
 
@@ -76,7 +76,7 @@ all intermediate stops, live). Prefer format='text' for chat answers; 'json' for
 Data is scraped from undocumented bahn.de endpoints and may break without notice."""
 
 mcp = FastMCP("db-fahrplan", instructions=INSTRUCTIONS)
-READ_ONLY = ToolAnnotations(readOnlyHint=True, idempotentHint=True, openWorldHint=True)
+READ_ONLY = read_only_annotations()
 
 
 # --------------------------------------------------------------------------- HTTP
