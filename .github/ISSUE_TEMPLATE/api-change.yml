@@ -1,0 +1,30 @@
+name: Tool returns wrong data or an error
+description: bahn.de changed something, or a tool misbehaves
+labels: [bug]
+body:
+  - type: input
+    id: tool
+    attributes:
+      label: Tool and arguments
+      placeholder: db_journeys("Köln Hbf", "Berlin Hbf", "2026-09-01 08:00")
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What came back (error text or wrong output)
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: "`db-fahrplan-mcp --version` and `pip show mcp | grep Version`"
+    validations:
+      required: true
+  - type: checkboxes
+    id: timing
+    attributes:
+      label: Timing
+      options:
+        - label: This is right after a German timetable change (mid-December / mid-June) — the data itself may be in flux
