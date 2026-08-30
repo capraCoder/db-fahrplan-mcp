@@ -1,0 +1,43 @@
+# bahn.de's endpoints are undocumented. This runs the live tests weekly and opens
+# (or updates) an issue when they break, so users hear about it before they hit it.
+name: bahn.de canary
+on:
+  schedule:
+    - cron: "17 5 * * 1"   # Mondays 05:17 UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -e ".[dev]"
+      - id: live
+        continue-on-error: true
+        run: pytest -q -m live tests/live 2>&1 | tee live.log
+      - name: open or update issue on failure
+        if: steps.live.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="Canary: live bahn.de tests failed"
+          BODY="Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"$'\n\n```\n'"$(tail -n 60 live.log)"$'\n```'
+          N=$(gh issue list --label canary --state open --json number --jq '.[0].number')
+          if [ -n "$N" ]; then gh issue comment "$N" --body "$BODY"; else gh issue create --title "$TITLE" --label canary --body "$BODY"; fi
+      - name: close canary issue on success
+        if: steps.live.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for N in $(gh issue list --label canary --state open --json number --jq '.[].number'); do
+            gh issue close "$N" --comment "Canary green again in run ${{ github.run_id }}."
+          done
+      - if: steps.live.outcome == 'failure'
+        run: exit 1

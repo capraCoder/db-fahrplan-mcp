@@ -1,0 +1,44 @@
+# Tag v<version> -> build -> Trusted Publishing to PyPI (OIDC, no token stored).
+# One-time setup on pypi.org: Account -> Publishing -> add pending publisher
+#   project db-fahrplan-mcp, owner capraCoder, repo db-fahrplan-mcp,
+#   workflow release.yml, environment pypi.
+name: Release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install build twine
+      - name: tag must match package version and changelog
+        run: |
+          V=$(python -c "import re;print(re.search(r'__version__\s*=\s*\"([^\"]+)\"',open('src/db_fahrplan_mcp/__init__.py').read()).group(1))")
+          [ "v$V" = "$GITHUB_REF_NAME" ] || { echo "tag $GITHUB_REF_NAME != version $V"; exit 1; }
+          grep -q "\[$V\]" CHANGELOG.md || { echo "CHANGELOG.md has no [$V] section"; exit 1; }
+      - run: python -m build
+      - run: twine check --strict dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/db-fahrplan-mcp
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
