@@ -5,6 +5,7 @@
 [![CI](https://github.com/capraCoder/db-fahrplan-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/capraCoder/db-fahrplan-mcp/actions/workflows/ci.yml)
 [![bahn.de canary](https://github.com/capraCoder/db-fahrplan-mcp/actions/workflows/canary.yml/badge.svg)](https://github.com/capraCoder/db-fahrplan-mcp/actions/workflows/canary.yml)
 [![License: MIT](https://img.shields.io/pypi/l/db-fahrplan-mcp)](LICENSE)
+[![Glama score](https://glama.ai/mcp/servers/capraCoder/db-fahrplan-mcp/badges/score.svg)](https://glama.ai/mcp/servers/capraCoder/db-fahrplan-mcp)
 
 Live Deutsche Bahn timetables for Claude, Cursor, and any [MCP](https://modelcontextprotocol.io) client:
 connections, every fare option, cheapest time of day, departure boards, delays, platform changes,
