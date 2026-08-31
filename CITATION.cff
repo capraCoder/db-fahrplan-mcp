@@ -3,9 +3,7 @@ title: "db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server"
 message: "If you use this software, please cite it using this metadata."
 type: software
 authors:
-  - family-names: "Caprazli"
-    given-names: "Kafkas M."
-    orcid: "https://orcid.org/0000-0002-5744-8944"
+  - name: "capraCoder"
 version: "0.2.1"
 date-released: "2026-08-30"
 license: "MIT"
