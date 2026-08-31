@@ -4,6 +4,17 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-08-31
+
+### Added
+- `DISCLAIMER.md`: independence, bahn.de terms responsibility, no-data/no-extraction statement, intended personal use, accuracy and liability limits, privacy, official channels.
+
+### Changed
+- Canary workflow is manual-only (no scheduled automated queries against bahn.de).
+- Attribution consolidated to `capraCoder`.
+
+No functional code changes.
+
 ## [0.2.1] - 2026-08-30
 
 ### Added

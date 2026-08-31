@@ -130,10 +130,13 @@ ruff check . && mypy
 CI runs on Linux + Windows, Python 3.10–3.13, on both MCP SDK 1.x and 2.x. A weekly canary
 runs the live tests and opens an issue if bahn.de changes something.
 
-## Caveats, honestly
+## Legal, honestly
+
+Full text: [DISCLAIMER.md](DISCLAIMER.md). The short version:
 
 - **Unofficial.** Not affiliated with, endorsed by, or supported by Deutsche Bahn AG. "Deutsche
-  Bahn" and "DB" are trademarks of Deutsche Bahn AG.
+  Bahn" and "DB" are trademarks of Deutsche Bahn AG. The software ships no DB data and performs
+  no systematic extraction — each query fetches only what the user asked for.
 - **Undocumented endpoints.** bahn.de can change or block them at any time. The canary will
   notice within a week; please open an issue with the raw response if you hit it first.
 - **bahn.de's terms of use** restrict automated access. This is a personal, non-commercial tool
@@ -142,13 +145,14 @@ runs the live tests and opens an issue if bahn.de changes something.
 - **Prices are informational**, as bahn.de quotes them for the given travellers at that moment.
   Booking happens on bahn.de.
 - **Timetable changes** (mid-December, mid-June) can make far-future queries temporarily odd.
+- **No liability** for missed connections or wrong fares — see [DISCLAIMER.md](DISCLAIMER.md).
 
 ## Citing
 
 If this server is part of published work, cite it (metadata in `CITATION.cff`; GitHub's
 "Cite this repository" button renders it):
 
-> capraCoder (2026). *db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server* (Version 0.2.1) [Software]. https://github.com/capraCoder/db-fahrplan-mcp
+> capraCoder (2026). *db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server* (Version 0.2.2) [Software]. https://github.com/capraCoder/db-fahrplan-mcp
 
 ```bibtex
 @software{capracoder_db_fahrplan_mcp_2026,

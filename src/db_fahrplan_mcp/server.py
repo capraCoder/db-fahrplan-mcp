@@ -73,7 +73,8 @@ is ambiguous or rejected. All times are Europe/Berlin local time as 'YYYY-MM-DD 
 '+n' after a time is a real-time delay in minutes. Every journey carries recon_token (for
 db_journey_offers = full fare breakdown) and every leg carries journey_id (for db_trip_details =
 all intermediate stops, live). Prefer format='text' for chat answers; 'json' for processing.
-Data is scraped from undocumented bahn.de endpoints and may break without notice."""
+Unofficial tool on undocumented bahn.de endpoints; data can be wrong or break without
+notice — advise the user to verify anything that matters on bahn.de before relying on it."""
 
 mcp = FastMCP("db-fahrplan", instructions=INSTRUCTIONS)
 READ_ONLY = read_only_annotations()

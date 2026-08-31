@@ -14,3 +14,4 @@ ruff check . && mypy
   (strip nothing that the parser reads) and adjust the parser — do not special-case tests.
 - Keep stdout clean: it is the MCP wire. Log to stderr.
 - One new tool per PR, with a docstring written for an LLM reader (what it returns, when to use it).
+- PRs that circumvent access controls or blocking by bahn.de (header spoofing beyond an honest UA, IP rotation, rate-limiter removal) will be rejected — this project stays an honest client.

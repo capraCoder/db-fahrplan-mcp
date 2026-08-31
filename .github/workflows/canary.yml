@@ -1,9 +1,9 @@
 # bahn.de's endpoints are undocumented. This runs the live tests weekly and opens
 # (or updates) an issue when they break, so users hear about it before they hit it.
 name: bahn.de canary
+# Manual-only by policy: scheduled cloud queries against bahn.de are exactly the
+# automated-access pattern this project avoids. Run it by hand when needed.
 on:
-  schedule:
-    - cron: "17 5 * * 1"   # Mondays 05:17 UTC
   workflow_dispatch:
 permissions:
   contents: read
