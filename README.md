@@ -153,7 +153,7 @@ Full text: [DISCLAIMER.md](DISCLAIMER.md). The short version:
 If this server is part of published work, cite it (metadata in `CITATION.cff`; GitHub's
 "Cite this repository" button renders it):
 
-> capraCoder (2026). *db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server* (Version 0.2.2) [Software]. https://github.com/capraCoder/db-fahrplan-mcp
+> capraCoder (2026). *db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server* (Version 1.0.0) [Software]. https://github.com/capraCoder/db-fahrplan-mcp
 
 ```bibtex
 @software{capracoder_db_fahrplan_mcp_2026,

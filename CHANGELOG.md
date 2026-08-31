@@ -4,6 +4,13 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-08-31
+
+### Changed
+- Declared stable: the 9-tool API surface and output shapes of 0.2.x are now the supported contract (SemVer applies from here). Development Status classifier raised to Production/Stable.
+
+No functional changes since 0.2.2.
+
 ## [0.2.2] - 2026-08-31
 
 ### Added
