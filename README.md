@@ -160,9 +160,8 @@ If this server is part of published work, cite it (metadata in `CITATION.cff`; G
 }
 ```
 
-Every release is archived on Zenodo with a DOI (badge above once the first archive lands)
-and each release's artifacts carry OpenTimestamps proofs (`*.ots`, Bitcoin-anchored) in the
-GitHub release assets.
+Release artifacts carry OpenTimestamps proofs (`*.ots`, Bitcoin-anchored): existence and
+integrity are provable without any third-party archive.
 
 ## Licence
 
