@@ -4,8 +4,8 @@ message: "If you use this software, please cite it using this metadata."
 type: software
 authors:
   - name: "capraCoder"
-version: "1.0.0"
-date-released: "2026-08-31"
+version: "1.0.1"
+date-released: "2026-10-13"
 license: "MIT"
 repository-code: "https://github.com/capraCoder/db-fahrplan-mcp"
 url: "https://pypi.org/project/db-fahrplan-mcp/"

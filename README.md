@@ -7,6 +7,12 @@
 [![License: MIT](https://img.shields.io/pypi/l/db-fahrplan-mcp)](LICENSE)
 [![Glama score](https://glama.ai/mcp/servers/capraCoder/db-fahrplan-mcp/badges/score.svg)](https://glama.ai/mcp/servers/capraCoder/db-fahrplan-mcp)
 
+> **Status, 2026-10-13: currently blocked by bahn.de.** bahn.de answers this tool's requests
+> (station search, departure boards, journeys) with HTTP 403 `OPS_BLOCKED`, from a residential
+> connection too. The tool reports the block with bahn.de's reference and does not work around
+> it: this project stays an honest client (see [Legal, honestly](#legal-honestly)). Until
+> bahn.de lets it through again, use bahn.de or the DB Navigator app.
+
 Live Deutsche Bahn timetables for Claude, Cursor, and any [MCP](https://modelcontextprotocol.io) client:
 connections, every fare option, cheapest time of day, departure boards, delays, platform changes,
 all stops of a train, coach sequence, stations near you.
@@ -142,7 +148,9 @@ Full text: [DISCLAIMER.md](DISCLAIMER.md). The short version:
   notice within a week; please open an issue with the raw response if you hit it first.
 - **bahn.de's terms of use** restrict automated access. This is a personal, non-commercial tool
   with an honest `User-Agent` and a rate limiter (30 req/min by default). Use it for yourself;
-  do not build a scraping farm on it. Cloud/VPN IPs are sometimes blocked (HTTP 403).
+  do not build a scraping farm on it. bahn.de can refuse requests (HTTP 403) from cloud/VPN
+  addresses or from this tool itself, on any network. The tool reports the block with
+  bahn.de's reference and stops; it does not work around blocks.
 - **Prices are informational**, as bahn.de quotes them for the given travellers at that moment.
   Booking happens on bahn.de.
 - **Timetable changes** (mid-December, mid-June) can make far-future queries temporarily odd.
@@ -153,13 +161,13 @@ Full text: [DISCLAIMER.md](DISCLAIMER.md). The short version:
 If this server is part of published work, cite it (metadata in `CITATION.cff`; GitHub's
 "Cite this repository" button renders it):
 
-> capraCoder (2026). *db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server* (Version 1.0.0) [Software]. https://github.com/capraCoder/db-fahrplan-mcp
+> capraCoder (2026). *db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server* (Version 1.0.1) [Software]. https://github.com/capraCoder/db-fahrplan-mcp
 
 ```bibtex
 @software{capracoder_db_fahrplan_mcp_2026,
   author  = {{capraCoder}},
   title   = {db-fahrplan-mcp: Deutsche Bahn timetables as an MCP server},
-  version = {0.2.1},
+  version = {1.0.1},
   year    = {2026},
   url     = {https://github.com/capraCoder/db-fahrplan-mcp}
 }

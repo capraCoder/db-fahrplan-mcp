@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import functools
+import html
 import json
 import logging
 import os
@@ -116,6 +117,23 @@ def client() -> httpx.Client:
     return _client
 
 
+def _blocked_message(r: httpx.Response) -> str:
+    """Report a 403 as bahn.de gave it. Never suggest a workaround: this project stays an honest client."""
+    body = r.text[:1000]
+    if "OPS_BLOCKED" in body:
+        ref = re.search(r'"errorRefId"\s*:\s*"([^"]+)"', body)
+        reason = "OPS_BLOCKED" + (f", ref {ref.group(1)}" if ref else "")
+    elif "Access Denied" in body:
+        ref = re.search(r"Reference #(\S+)", html.unescape(body))
+        reason = "Access Denied" + (f", ref {ref.group(1)}" if ref else "")
+    else:
+        reason = "no reason given"
+    return (f"bahn.de refused the request (HTTP 403, {reason}). bahn.de is blocking this client. The block "
+            "can target this tool itself, not only cloud or VPN addresses, so retrying or changing network "
+            "may not help. This tool does not work around blocks: check the journey on bahn.de or in the "
+            "DB Navigator app.")
+
+
 def _request(method: str, path: str, **kw: Any) -> Any:
     """GET/POST with rate limiting, retry on 429/5xx, and human-readable failures."""
     url = f"{BASE}/{path}"
@@ -135,8 +153,7 @@ def _request(method: str, path: str, **kw: Any) -> Any:
             time.sleep(1.5 * (attempt + 1))
             continue
         if r.status_code == 403:
-            raise ToolError("bahn.de refused the request (HTTP 403). Cloud/VPN IPs are often "
-                            "blocked; try from a residential connection or wait a few minutes.")
+            raise ToolError(_blocked_message(r))
         if r.status_code >= 400:
             raise ToolError(f"bahn.de returned HTTP {r.status_code} for {path}: {r.text[:200]}")
         try:

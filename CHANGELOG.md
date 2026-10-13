@@ -4,6 +4,12 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-13
+
+### Changed
+- HTTP 403 errors now say what bahn.de answered (`Access Denied` or `OPS_BLOCKED`, with bahn.de's reference) and no longer claim that only cloud/VPN addresses are blocked or suggest retrying from another connection. On 2026-10-13 bahn.de refused this tool's requests from a residential connection; the tool reports such blocks and does not work around them.
+- README: status note that bahn.de currently blocks the tool.
+
 ## [1.0.0] - 2026-08-31
 
 ### Changed

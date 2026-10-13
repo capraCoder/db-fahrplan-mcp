@@ -8,6 +8,7 @@ import json
 import re
 from datetime import datetime
 
+import httpx
 import pytest
 
 import db_fahrplan_mcp.server as s
@@ -184,6 +185,47 @@ def test_train_formation_uses_utc(offline) -> None:
     assert coaches and all(c.get("sector") for c in coaches)
     with pytest.raises(ToolError):
         s.db_train_formation("RE 7", "Köln Hbf", "2026-08-30 14:54")
+
+
+# ------------------------------------------------------------------ HTTP 403 (bodies recorded 2026-10-13)
+
+AKAMAI_403 = "\n".join([
+    "<HTML><HEAD>",
+    "<TITLE>Access Denied</TITLE>",
+    "</HEAD><BODY>",
+    "<H1>Access Denied</H1>",
+    " ",
+    'You don\'t have permission to access "http&#58;&#47;&#47;www&#46;bahn&#46;de&#47;web&#47;api&#47;'
+    'reiseloesung&#47;orte&#63;" on this server.<P>',
+    "Reference&#32;&#35;18&#46;2f8f1402&#46;1791866222&#46;3fa0fd",
+    "<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;2f8f1402&#46;1791866222&#46;3fa0fd</P>",
+    "</BODY>",
+    "</HTML>",
+    "",
+])
+OPS_403 = '{"status":"ERROR","code":"OPS_BLOCKED","errorRefId": "0.5d611302.1791865824.122fa16c"}'
+
+
+@pytest.mark.parametrize(("body", "reason"), [
+    (AKAMAI_403, "HTTP 403, Access Denied, ref 18.2f8f1402.1791866222.3fa0fd)"),
+    (OPS_403, "HTTP 403, OPS_BLOCKED, ref 0.5d611302.1791865824.122fa16c)"),
+    ("", "HTTP 403, no reason given)"),
+])
+def test_403_reports_what_bahn_said_and_offers_no_workaround(monkeypatch, body: str, reason: str) -> None:
+    sent = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        sent.append(request)
+        return httpx.Response(403, text=body)
+
+    monkeypatch.setattr(s, "client", lambda: httpx.Client(transport=httpx.MockTransport(handler)))
+    monkeypatch.setattr(s._bucket, "take", lambda: None)
+    with pytest.raises(ToolError) as e:
+        s._request("GET", "reiseloesung/orte")
+    msg = str(e.value)
+    assert reason in msg and "does not work around blocks" in msg
+    assert "residential" not in msg and "wait a few minutes" not in msg
+    assert len(sent) == 1  # a block is final: no retry
 
 
 # ------------------------------------------------------------------ through the MCP layer
